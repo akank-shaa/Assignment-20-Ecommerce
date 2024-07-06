@@ -3,14 +3,14 @@ import { useParams } from 'react-router-dom';
 import allData from './DummyData';
 
 function ProductDetail() {
-    const { sku } = useParams();
-    // const sku = params.sku;
+    const { id } = useParams();
+    // const id = params.id;
 
     let product;
 
     for (let i = 0; i < allData.length; i++) {
         const p = allData[i];
-        if (sku == p.sku) {
+        if (id == p.id) {
             product = p;
             break;
         }

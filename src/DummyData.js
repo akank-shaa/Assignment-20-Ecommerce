@@ -1,7 +1,7 @@
 
 const allData = [
     {
-        sku: "axxa",
+        id: 1,
         photo: "https://taskroom.in/wp-content/uploads/2018/06/mug-white.jpg",
         title: "Black, Printed Coffee Mug",
         category: "Mugs",
@@ -9,7 +9,7 @@ const allData = [
         price: "15.00",
     },
     {
-        sku: "axxb",
+        id: 2,
         photo: "https://taskroom.in/wp-content/uploads/2018/06/mug-coffee.jpg",
         title: "Father's Day Coffee Mug",
         category: "Mugs",
@@ -17,7 +17,7 @@ const allData = [
         price: "19.00",
     },
     {
-        sku: "axxc",
+        id: 3,
         photo: "http://bestieindia.com/wp-content/uploads/2021/03/tshirt1.jpg",
         title: "Green Printed T-Shirt",
         category: "Tshirts",
@@ -25,7 +25,7 @@ const allData = [
         price: "34.00",
     },
     {
-        sku:"axxd",
+        id: 4,
         photo: "https://taskroom.in/wp-content/uploads/2018/06/mug-red.jpg",
         title: "Personalised Mug",
         category: "Mugs",
@@ -33,7 +33,7 @@ const allData = [
         price: "15.00",
     },
     {
-        sku:"axxe",
+        id: 5,
         photo: "https://erlk.shop/wp-content/uploads/2018/06/tshirt6-300x300.jpg",
         title: "Printed Brown T-Shirt",
         category: "Tshirts",
@@ -41,7 +41,7 @@ const allData = [
         price: "25.00",
     },
     {
-        sku:"axxf",
+        id: 6,
         photo: "https://erlk.shop/wp-content/uploads/2018/06/tshirt2-300x300.jpg",
         title: "Printed Dark Blue T-Shirt",
         category: "Tshirts",
@@ -49,7 +49,7 @@ const allData = [
         price: "34.00",
     },
     {
-        sku:"axxg",
+        id: 7,
         photo: "https://erlk.shop/wp-content/uploads/2018/06/tshirt5-300x300.jpg",
         title: "Printed Green T-Shirt",
         category: "Tshirts",
@@ -57,7 +57,7 @@ const allData = [
         price: "28.00",
     },
     {
-        sku:"axxh",
+        id: 8,
         photo: "https://erlk.shop/wp-content/uploads/2018/06/tshirt3-300x300.jpg",
         title: "Printed Tshirt Coffee Black Color",
         category: "Tshirts",
@@ -65,7 +65,7 @@ const allData = [
         price: "25.00",
     },
     {
-        sku:"axxi",
+        id: 9,
         photo: "https://erlk.shop/wp-content/uploads/2018/06/tshirt7-300x300.jpg",
         title: "Typography Teal Printed Tshirt",
         category: "Tshirts",
