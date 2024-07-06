@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import ProductDetail from './ProductDetail';
 import ProductListPage from './ProductListPage';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
     return (
@@ -10,17 +11,15 @@ function App() {
             <div class="bg-white h-20">
                 <Navbar photo="src/Amazon.png" />
             </div>
-
-            <div>
-                <ProductListPage />
+            <div className=''>
+                <Routes>
+                    <Route index element={<ProductListPage />}></Route>
+                    <Route path='/products/1' element={<ProductDetail/>}></Route>
+                </Routes>
             </div>
 
             <div class="bg-gray-700">
                 <Footer />
-            </div>
-
-            <div>
-                <ProductDetail />
             </div>
         </div>
     );

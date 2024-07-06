@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 function Product({ title, rating, category, photo, price }) {
@@ -13,6 +14,7 @@ function Product({ title, rating, category, photo, price }) {
                 <img class="w-full h-full" src={rating} />
             </div>
             <div class="text-sm font-bold text-gray-700">${price}</div>
+            <Link to="/products/1" className='text-indigo-600 italic'>View Details</Link>
         </div>
 
     );
