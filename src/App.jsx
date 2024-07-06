@@ -14,7 +14,7 @@ function App() {
             <div className=''>
                 <Routes>
                     <Route index element={<ProductListPage />}></Route>
-                    <Route path='/products/1' element={<ProductDetail/>}></Route>
+                    <Route path='/products/:sku/' element={<ProductDetail/>}></Route>
                 </Routes>
             </div>
 
