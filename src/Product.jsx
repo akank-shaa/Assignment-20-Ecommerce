@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 function Product({ title, rating, category, photo, price }) {
     return (
         <div class="w-76 h-full bg-white flex flex-col gap-2 px-2 py-5">
@@ -16,5 +17,6 @@ function Product({ title, rating, category, photo, price }) {
 
     );
 }
+
 
 export default Product;
