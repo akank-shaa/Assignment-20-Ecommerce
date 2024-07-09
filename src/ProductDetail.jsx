@@ -1,11 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import allData from './DummyData';
+import { HiArrowLeft } from "react-icons/hi";
+import { Link } from 'react-router-dom';
 
 function ProductDetail() {
     const { id } = useParams();
-    // const id = params.id;
-
     let product;
 
     for (let i = 0; i < allData.length; i++) {
@@ -19,6 +19,9 @@ function ProductDetail() {
     return (
         <>
             <div className="bg-neutral-100 w-[1152px] h-[656px] mx-auto my-8 pt-14 pb-6">
+                <Link className="text-indigo-500" to="/">
+                    <HiArrowLeft className="text-3xl m-5" />
+                </Link>
                 <div className="flex bg-white mx-5 px-10 py-6 font-['Poppins']">
                     <img className="w-1/2" src={product.photo} alt="Coffee Mug" />
                     <div className="flex flex-col gap-3 mx-10">

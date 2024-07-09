@@ -14,7 +14,7 @@ function Product({ title, rating, category, photo, price, id }) {
                 <img class="w-full h-full" src={rating} />
             </div>
             <div class="text-sm font-bold text-gray-700">${price}</div>
-            <Link to = {"/products/" + id} className='text-indigo-600 italic'>View Details</Link>
+            <Link to={"/products/" + id} className='text-indigo-600 italic'>View Details</Link>
         </div>
 
     );

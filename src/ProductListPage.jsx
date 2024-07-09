@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductList from './ProductList';
-import allData from './DummyData';
+import NoMatching from './NoMatching';
+import { getProductList } from './Api';
 
 function ProductListPage() {
-
+    const [productList, setProductList] = useState([]);
     const [query, setQuery] = useState("");
     const [sort, setSort] = useState("default");
 
-    let data = allData.filter(function (items) {
+    useEffect(function () {
+        const list = getProductList(query);
+        setProductList(list);
+    }, []);
+
+
+    let data = productList.filter(function (items) {
         return items.title.toLowerCase().indexOf(query.toLowerCase()) != -1;
     });
 
@@ -53,7 +60,8 @@ function ProductListPage() {
                     <option value="price2">Sort By Price:high to low</option>
                 </select>
             </div>
-            <ProductList products={data} />
+            {data.length > 0 && <ProductList products={data} />}
+            {data.length == 0 && <NoMatching>No Matching Product</NoMatching>}
         </div>
     )
 }

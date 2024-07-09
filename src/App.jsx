@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ProductDetail from './ProductDetail';
@@ -14,7 +14,7 @@ function App() {
             <div className=''>
                 <Routes>
                     <Route index element={<ProductListPage />}></Route>
-                    <Route path='/products/:id/' element={<ProductDetail/>}></Route>
+                    <Route path='/products/:id' element={<ProductDetail />}></Route>
                 </Routes>
             </div>
 
