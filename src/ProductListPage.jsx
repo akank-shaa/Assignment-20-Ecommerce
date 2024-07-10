@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react';
 import ProductList from './ProductList';
 import NoMatching from './NoMatching';
 import { getProductList } from './Api';
+import Loading from './Loading';
 
 function ProductListPage() {
     const [productList, setProductList] = useState([]);
     const [query, setQuery] = useState("");
     const [sort, setSort] = useState("default");
+    const [loading, setLoading] = useState(true);
 
     useEffect(function () {
-        const list = getProductList(query);
-        setProductList(list);
+        const xyz = getProductList();
+        xyz.then(function (response) {
+            setProductList(response.data.products);
+            setLoading(false);
+        });
     }, []);
 
 
@@ -39,6 +44,10 @@ function ProductListPage() {
     function handleSortChange(event) {
         setSort(event.target.value);
     }
+    if (loading) {
+        return <Loading />
+    }
+
 
     return (
         <div class="w-[1152px] mx-auto bg-white px-28 py-12">
