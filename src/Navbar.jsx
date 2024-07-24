@@ -1,5 +1,6 @@
 import React from 'react';
-import { HiShoppingBag } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
+import { GrShop } from "react-icons/gr";
 
 function Navbar({ productCount }) {
   return (
@@ -8,8 +9,10 @@ function Navbar({ productCount }) {
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/905px-Amazon_logo.svg.png?20220213013322"
           className="h-16" />
         <div className='flex flex-col items-center'>
-          <span>{productCount}</span>
-          <HiShoppingBag />
+          <Link to="cart">
+            <GrShop className='text-3xl text-orange-500' />
+            <span className='text-orange-500'>{productCount}</span>
+          </Link>
         </div>
       </div>
     </div>

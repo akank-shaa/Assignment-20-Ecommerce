@@ -6,6 +6,7 @@ import ProductDetail from './ProductDetail';
 import ProductListPage from './ProductListPage';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from './NotFound';
+import CartListPage from './CartListPage';
 
 function App() {
 
@@ -38,7 +39,7 @@ function App() {
     }, [cart]);
 
     return (
-        <div className=" grow bg-zinc-100 flex flex-col gap-14 font-['Poppins']">
+        <div className=" grow flex flex-col gap-14 font-['Poppins']">
             <div className="bg-white h-20">
                 <Navbar photo="src/Amazon.png" productCount={totalCount} />
             </div>
@@ -47,6 +48,7 @@ function App() {
                     <Route index element={<ProductListPage />} />
                     <Route path='/products/:id' element={<ProductDetail onAddToCart={handleAddToCart} />} />
                     <Route path='*' element={<NotFound />} />
+                    <Route path="/cart" element={<CartListPage cart={cart} />} />
                 </Routes>
             </div>
 

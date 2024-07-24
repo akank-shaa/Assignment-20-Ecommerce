@@ -78,8 +78,9 @@ function ProductDetail({ onAddToCart }) {
     return (
         <>
             <div className="bg-neutral-100 w-[1152px] h-[656px] mx-auto my-8 pt-14 pb-6">
-                <Link className="text-indigo-500" to="/">
-                    <HiArrowLeft className="text-3xl m-5" />
+                <Link className="text-indigo-500 flex" to="/">
+                    <HiArrowLeft className="text-3xl ml-5" />
+                    <span className='ml-2 text-xl'>BACK</span>
                 </Link>
                 <div className="flex bg-white mx-5 px-10 py-6 font-['Poppins']">
                     <img className="w-1/2" src={product.thumbnail} alt="Coffee Mug" />

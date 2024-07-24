@@ -1,5 +1,5 @@
 import React from "react";
-import PageButton from "./PageButton";
+import Button from "./Button";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 
 function NotFound() {
@@ -8,10 +8,10 @@ function NotFound() {
             <img className="h-screen z-0 mx-auto" src="https://static.vecteezy.com/system/resources/previews/004/639/366/original/error-404-not-found-text-design-vector.jpg" />
             <div className="z-10 absolute mb-28 flex">
                 <Link to="/">
-                    <PageButton>
+                    <Button>
                         Return to Shopping
                         <span className="ml-30"><HiOutlineArrowNarrowRight /></span>
-                    </PageButton>
+                    </Button>
                 </Link>
             </div>
         </div>

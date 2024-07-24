@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import ProductList from './ProductList';
 import NoMatching from './NoMatching';
 import { getProductList } from './Api';
@@ -42,13 +42,15 @@ function ProductListPage() {
         }
     }, [sort, data])
 
-    function handleQueryChange(event) {
+    const handleQueryChange = useCallback(function (event) {
         setQuery(event.target.value);
-    }
+    }, [query]
+    )
 
-    function handleSortChange(event) {
+    const handleSortChange = useCallback(function (event) {
         setSort(event.target.value);
-    }
+    }, [sort]
+)
 
     if (loading) {
         return <Loading />
