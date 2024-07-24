@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import ProductList from './ProductList';
 import NoMatching from './NoMatching';
 import { getProductList } from './Api';
@@ -11,9 +11,8 @@ function ProductListPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(function () {
-        const xyz = getProductList();
-        xyz.then(function (response) {
-            setProductList(response.data.products);
+        getProductList().then(function (products) {
+            setProductList(products);
             setLoading(false);
         });
     }, []);
@@ -23,19 +22,25 @@ function ProductListPage() {
         return items.title.toLowerCase().indexOf(query.toLowerCase()) != -1;
     });
 
-    if (sort == 'price1') {
-        data.sort(function (a, b) {
-            return a.price - b.price;
-        });
-    } else if (sort == 'price2') {
-        data.sort(function (a, b) {
-            return b.price - a.price;
-        });
-    } else if (sort == 'name') {
-        data.sort(function (a, b) {
-            return a.title < b.title ? -1 : 1;
-        });
-    }
+    useMemo(function () {
+        if (sort == 'price1') {
+            data.sort(function (a, b) {
+                return a.price - b.price;
+            });
+        } else if (sort == 'price2') {
+            data.sort(function (a, b) {
+                return b.price - a.price;
+            });
+        } else if (sort == 'name') {
+            data.sort(function (a, b) {
+                return a.title < b.title ? -1 : 1;
+            });
+        } else if (sort == "rating") {
+            data.sort(function (a, b) {
+                return b.rating - a.rating;
+            });
+        }
+    }, [sort, data])
 
     function handleQueryChange(event) {
         setQuery(event.target.value);
@@ -44,14 +49,15 @@ function ProductListPage() {
     function handleSortChange(event) {
         setSort(event.target.value);
     }
+
     if (loading) {
         return <Loading />
     }
 
 
     return (
-        <div class="w-[1152px] mx-auto bg-white px-28 py-12">
-            <div class="flex gap-4 p-6 justify-end">
+        <div className="max-w-6xl mx-auto bg-white px-28 py-12">
+            <div className="flex gap-4 p-6 justify-end">
                 <input
                     value={query}
                     placeholder="Search"
@@ -67,6 +73,7 @@ function ProductListPage() {
                     <option value="name">Sort By Title</option>
                     <option value="price1">Sort By Price:low to high</option>
                     <option value="price2">Sort By Price:high to low</option>
+                    <option value="rating">Sort by Rating</option>
                 </select>
             </div>
             {data.length > 0 && <ProductList products={data} />}
