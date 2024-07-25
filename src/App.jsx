@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState, useMemo } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -16,17 +16,14 @@ function App() {
     const [cart, setCart] = useState(savedData);
 
     function handleAddToCart(productId, count) {
-        const oldCount = cart[productId] || 0;
+        const oldCart = cart[productId] || 0;
 
         // setCart({...cart, [productId]: oldCount + count});
 
-        const newCart = { ...cart }
-        newCart[productId] = oldCount + count; //object mutation
+        const newCart = { ...cart, [productId]: oldCart + count };
         setCart(newCart);
         const cartString = JSON.stringify(newCart);
-        useEffect(() => {
-            localStorage.setItem("my-cart", cartString);
-        }, []);
+        localStorage.setItem("my-cart", cartString);
     }
 
     const totalCount = useMemo(function () {

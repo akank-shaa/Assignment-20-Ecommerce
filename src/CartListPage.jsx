@@ -25,53 +25,59 @@ function CartListPage({ cart }) {
     if (cartKey.length == 0) {
         return (
             <div className="flex flex-col gap-5 mx-auto">
-                <h1 className="bold text-3xl">Add Items to Your Cart</h1>
+                <h1 className="font-bold text-3xl text-center">Add Items to Your Cart<br />My Dear Customer</h1>
                 <div className="flex justify-center">
-                    <Link className="" to="/">HOME</Link>
+                    <Link className="text-indigo-700 font-bold text-5xl" to="/">HOME</Link>
                 </div>
             </div>
         )
     }
     return (
-        <div className="flex flex-col gap-3">
-            <div className="flex gap-2 py-2 px-8 sm:justify-between bg-gray-100">
-                <h3 className="bold text-2xl">Product</h3>
-                <h3 className="bold text-2xl">Name</h3>
-                <h3 className="bold text-2xl">Price</h3>
-                <h3 className="bold text-2xl">Quantity</h3>
-                <h3 className="bold text-2xl">SubTotal</h3>
-            </div>
-            {cartKey.map(function (item) {
-                return (
-                    <>
-                        <CartDetails id={item} quantity={cart[item]} />
-                    </>
-                )
-            })}
-            <div className="flex p-2 justify-between">
-                <div className="flex gap-2">
-                    <input className="border border-gray-200 p-1" type="text" placeholder="Coupon Code" />
-                    <CartButton name="APPLY COUPON"></CartButton>
+        <div className="bg-white flex flex-col gap-6 mx-10">
+            <div className="mx-24 mt-24 border">
+                <div className="border justify-around flex py-3 bg-zinc-100 text-gray-600">
+                    <h3 className="font-semibold text-xl w-1/2 text-center">Product</h3>
+                    <div className="flex justify-evenly gap-x-32 items-center">
+                        <h6 className="font-semibold text-xl">Price</h6>
+                        <h3 className="font-semibold text-xl">Quantity</h3>
+                        <h3 className="font-semibold text-xl">SubTotal</h3>
+                    </div>
                 </div>
-                <Link to="/">
-                    <CartButton name="UPDATE CART"></CartButton>
-                </Link>
+                <div className="grid grid-flow-row">
+                    {cartKey.map(function (item) {
+                        return (
+                            <>
+                                <CartDetails id={item} quantity={cart[item]} />
+                            </>
+                        )
+                    })}
+                </div>
+                <div className="flex p-2 justify-between">
+                    <div className="flex gap-2 m-3">
+                        <input className="border border-gray-300 p-1" type="text" placeholder="Coupon Code" />
+                        <CartButton className="text-white" name="APPLY COUPON"></CartButton>
+                    </div>
+                    <div className="flex gap-2 text-xl m-2">
+                        <Link to="/">
+                            <CartButton className="text-white" name="UPDATE CART"></CartButton>
+                        </Link>
+                    </div>
+                </div>
             </div>
-            <div className="border self-end sm:mx-8 flex flex-col gap-4 min-w-80 max-w-96 px-4 py-2">
-                <h1 className="px-2 py-2 bold text-xl bg-gray-100">Cart totals</h1>
-                <div className="flex flex-col gap-2">
-                    <div className="px-2 flex gap-16 justify-between">
-                        <h2>Subtotal</h2>
+            <div className="mx-24 flex flex-col self-end w-2/5">
+                <div className="flex flex-col border">
+                    <h1 className="font-semibold border text-xl bg-gray-50 text-gray-600 py-4 px-4">Cart totals</h1>
+                    <div className="flex text-gray-800 font-semibold gap-32 px-8 py-4">
+                        <h2 className="">Subtotal</h2>
                         <h2>${totalCount}</h2>
                     </div>
                     <hr />
-                    <div className="px-2 flex gap-16 justify-between">
+                    <div className="flex gap-36 text-gray-800 font-semibold  py-4 px-8">
                         <h2>Total</h2>
                         <h2>${totalCount}</h2>
                     </div>
-                    <hr />
                 </div>
-                <CartButton name="PROCEED TO CHECKOUT"></CartButton>
+                <CartButton className="text-white m-4" name="PROCEED TO CHECKOUT"></CartButton>
             </div>
         </div>
 

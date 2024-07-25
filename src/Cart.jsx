@@ -9,7 +9,6 @@ function Cart(cart) {
         const promise = Object.keys(cart).map(function (id) {
             return getProductData(id);
         });
-
         const mainPromise = Promise.all(promise);
         mainPromise.then(function (products) {
             setCartList(products);
@@ -22,7 +21,7 @@ function Cart(cart) {
         );
     })
     return (
-        <div className='bg-white mx-auto p-3'>
+        <div>
             {cart}
         </div>
     );

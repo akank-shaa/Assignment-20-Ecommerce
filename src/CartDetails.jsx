@@ -17,14 +17,16 @@ function CartDetails({ id, quantity }) {
     }
 
     return (
-        <div className="grid grid-flow-row">
-            <div className="">
-                <img src={product.thumbnail} className="h-16 object-cover" alt={product.name} />
+        <div className="flex h-24 space-x-5 border border-gray-100">
+            <div className="flex w-1/2 gap-x-16 ml-5">
+                <img src={product.thumbnail} className="h-20 object-cover" alt={product.name} />
+                <p className="text-red-500 font-semibold text-xl flex text-left items-center">{product.title}</p>
             </div>
-            <span className="">{product.title}</span>
-            <span className="">${product.price}</span>
-            <span className="">{quantity}</span>
-            <span className="">${(product.price * quantity.toFixed(2))}</span>
+            <div className="flex w-1/2 text-left items-center justify-around">
+                <p className="font-semibold">${product.price}</p>
+                <p className="border px-5 py-1 text-gray-700">{quantity}</p>
+                <p className="font-semibold">${(product.price * quantity.toFixed(2))}</p>
+            </div>
         </div>
     )
 }
