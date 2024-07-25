@@ -9,9 +9,8 @@ import NotFound from './NotFound';
 
 function ProductDetail({ onAddToCart }) {
     const id = parseInt(useParams().id);
-
+    
     // let product;
-
     // for (let i = 0; i < allData.length; i++) {
     //     const p = allData[i];
     //     if (id == p.id) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 function Footer() {
   return (
     <div className="text-white py-8 text-xs relative flex text-center">
@@ -8,4 +8,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default memo(Footer);

@@ -72,12 +72,12 @@ function CartListPage({ cart }) {
                         <h2>${totalCount}</h2>
                     </div>
                     <hr />
-                    <div className="flex gap-36 text-gray-800 font-semibold  py-4 px-8">
+                    <div className="flex gap-36 border text-gray-800 font-semibold  py-4 px-8">
                         <h2>Total</h2>
                         <h2>${totalCount}</h2>
                     </div>
+                    <CartButton className="text-white m-4" name="PROCEED TO CHECKOUT"></CartButton>
                 </div>
-                <CartButton className="text-white m-4" name="PROCEED TO CHECKOUT"></CartButton>
             </div>
         </div>
 

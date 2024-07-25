@@ -16,7 +16,6 @@ function Product({ title, rating, category, thumbnail, price, id }) {
             <div className="text-sm font-bold text-gray-700">${price}</div>
             <Link to={"/products/" + id} className='text-indigo-600 italic'>View Details</Link>
         </div>
-
     );
 }
 

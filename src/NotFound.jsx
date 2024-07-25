@@ -1,6 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import Button from "./Button";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { Link } from 'react-router-dom';
 
 function NotFound() {
     return (
@@ -16,10 +17,9 @@ function NotFound() {
             </div>
         </div>
     );
-
 }
 
-export default NotFound;
+export default memo(NotFound);
 
 
 //const a ='{"title" : "iphone" , "price" : "25", "category" = "phone"}';
