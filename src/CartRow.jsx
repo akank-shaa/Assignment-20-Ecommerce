@@ -8,7 +8,9 @@ function CartRow({ thumbnail, title, price }) {
                     <img src={thumbnail} className="h-full" />
                 </div>
                 <h1 className="">{title}</h1>
-                <p>${price}</p>
+                <span>${price}</span>
+                <span>{quantity}</span>
+                <span>${SubTotal}</span>
             </div>
         );
     });

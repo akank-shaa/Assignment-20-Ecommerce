@@ -23,9 +23,11 @@ function CartDetails({ id, quantity }) {
                 <p className="text-red-500 font-semibold text-xl flex text-left items-center">{product.title}</p>
             </div>
             <div className="flex w-1/2 text-left items-center justify-around">
-                <p className="font-semibold">${product.price}</p>
-                <p className="border px-5 py-1 text-gray-700">{quantity}</p>
-                <p className="font-semibold">${(product.price * quantity.toFixed(2))}</p>
+                <span className="font-semibold">${product.price}</span>
+                <input
+                    type="number"
+                    className="border w-10 p-1 text-gray-900" placeholder={quantity} />
+                <span className="font-semibold">${(product.price * quantity.toFixed(2))}</span>
             </div>
         </div>
     )
