@@ -10,14 +10,11 @@ import CartListPage from './CartListPage';
 import SignUp from './SignUp';
 import ForgetPass from './ForgetPass';
 import Login from './Login';
-import Text from "./Text";
-
 
 function App() {
 
     const savedDataString = localStorage.getItem("my-cart") || "{}";
     const savedData = JSON.parse(savedDataString);
-
     const [cart, setCart] = useState(savedData);
 
     function handleAddToCart(productId, count) {
@@ -52,7 +49,6 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path='/forget' element={<ForgetPass />} />
-                    <Route path='/Text' element={<Text />} />
                 </Routes>
             </div>
             <Footer />
