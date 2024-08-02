@@ -2,7 +2,7 @@ import React from 'react';
 import FormikHOC from './FormikHOC';
 
 function Input({
-    label,value, id, className, touched, error, name, ...rest }) {
+    label, value, id, className, touched, error, name, ...rest }) {
 
     let borderClass = " border-gray-300 focus:border-indigo-500 ";
 

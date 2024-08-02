@@ -6,7 +6,7 @@ import ProductDetail from './ProductDetail';
 import ProductListPage from './ProductListPage';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from './NotFound';
-import CartListPage from './CartListPage';
+import CartPage from './CartPage';
 import SignUp from './SignUp';
 import ForgetPass from './ForgetPass';
 import Login from './Login';
@@ -33,6 +33,10 @@ function App() {
         // setCart({...cart, [productId]: oldCount + count});
 
         const newCart = { ...cart, [productId]: oldCart + count };
+        updateCart(newCart);
+    }
+
+    function updateCart(newCart) {
         setCart(newCart);
         const cartString = JSON.stringify(newCart);
         localStorage.setItem("my-cart", cartString);
@@ -67,7 +71,7 @@ function App() {
                     <Route index element={<ProductListPage />} />
                     <Route path='/products/:id' element={<ProductDetail onAddToCart={handleAddToCart} />} />
                     <Route path='*' element={<NotFound />} />
-                    <Route path="/cart" element={<CartListPage cart={cart} />} />
+                    <Route path="/cart" element={<CartPage cart={cart} updateCart={updateCart} />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path='/forget' element={<ForgetPass />} />
