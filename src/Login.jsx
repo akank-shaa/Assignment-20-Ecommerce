@@ -5,12 +5,24 @@ import Button from "./Button";
 import Input from './Input';
 import { withFormik } from "formik";
 
-function callLoginApi(values) {
+function callLoginApi(values, bag) {
+    axios
+        .post("https://myeasykart.codeyogi.io/login", {
+            email: values.email,
+            password: values.password,
+        })
+        .then((response) => {
+            const { user, token } = response.data;
+            localStorage.setItem("token", token);
+            bag.props.setUser(user);
+        })
+        .catch(() => {
+        });
 }
 
 const schema = Yup.object().shape({
     email: Yup.string().email().required("Please Enter Email"),
-    password: Yup.string().required("Please Enter password").min(8)
+    password: Yup.string().required("Please Enter password"),
 });
 
 const initialValues = {
@@ -18,15 +30,23 @@ const initialValues = {
     password: "",
 }
 
-export function Login({ handleSubmit, values, errors, touched, handleChange, handleBlur }) {
+export function Login({
+    handleSubmit,
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+}) {
+
     return (
         <div className="flex w-screen justify-center items-center">
             <form onSubmit={handleSubmit}
                 className="flex flex-col bg-white w-1/3 px-4 py-2 self-center rounded-xl shadow-md gap-4">
                 <h1 className="self-center py-5 text-3xl text-indigo-500 font-bold"> Login Page</h1>
                 <Input
-                    values={values.email}
-                    error={errors.email}
+                    value={values.email}
+                    errors={errors.email}
                     touched={touched.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -39,8 +59,8 @@ export function Login({ handleSubmit, values, errors, touched, handleChange, han
                     required
                 />
                 <Input
-                    values={values.password}
-                    error={errors.password}
+                    value={values.password}
+                    errors={errors.password}
                     touched={touched.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -51,7 +71,7 @@ export function Login({ handleSubmit, values, errors, touched, handleChange, han
                     name="password"
                     placeholder="Password"
                     id="password" />
-                <div claszsName="">
+                <div className="">
                     <Link className="text-blue-600 my-2 " to="/forget">Forget Password</Link>
                 </div>
                 <Button
@@ -74,8 +94,17 @@ export function Login({ handleSubmit, values, errors, touched, handleChange, han
 //HOC-> function that takes in a component and returns another comonent
 //SuperHOC -> a function that return  HOC , no constraint on taking any input
 
-export default withFormik({ validationSchema: schema, initialValues: initialValues, onSubmit: callLoginApi });
+// export default withFormik({ validationSchema: schema, initialValues: initialValues, onSubmit: callLoginApi });
+const myHOC = withFormik({
+    validationSchema: schema,
+    initialValues: initialValues,
+    handleSubmit: callLoginApi,
+});
 
+
+const EasyLogin = myHOC(Login);
+
+export default EasyLogin;
 
 // <Button
 // type="button"

@@ -25,7 +25,14 @@ function Input({
         </div>
     );
 }
+
 export const FormikInput = FormikHOC(Input);
 
-
 export default Input;
+
+
+//http a state less protocol - 
+
+//Stateless - Postman letters
+//Statefull - Phone call
+

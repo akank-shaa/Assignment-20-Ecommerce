@@ -36,16 +36,15 @@ function CartList({ products, cart, updateCart }) {
                 <span className="w-32">Quantity</span>
                 <span className="w-20">SubTotal</span>
             </div>
-            {products.map(function (p) {
-                return (
-                    <CartRow
-                        key={p.id}
-                        product={p}
-                        quantity={localCart[p.id]}
-                        onQuantityChange={handleQuantityChange}
-                        onRemove={handleRemove}
-                    />)
-            })}
+            {products.map((p) => (
+                <CartRow
+                    key={p.id}
+                    product={p}
+                    quantity={localCart[p.id]}
+                    onQuantityChange={handleQuantityChange}
+                    onRemove={handleRemove}
+                />
+            ))}
             <div className="px-4 py-2 flex justify-end border border-gray-300">
                 <CartButton onClick={handleUpdateCartClick}>UPDATE CART</CartButton>
             </div>
