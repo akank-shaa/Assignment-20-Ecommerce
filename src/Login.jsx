@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Button from "./Button";
 import Input from './Input';
 import { withFormik } from "formik";
+import axios from "axios";
+import { withAlert, withUser } from "./withProvider";
 
 function callLoginApi(values, bag) {
     axios
@@ -17,6 +19,7 @@ function callLoginApi(values, bag) {
             bag.props.setUser(user);
         })
         .catch(() => {
+            bag.props.setAlert({ type: "error", message: "Invalid Credentials" })
         });
 }
 
@@ -45,8 +48,8 @@ export function Login({
                 className="flex flex-col bg-white w-1/3 px-4 py-2 self-center rounded-xl shadow-md gap-4">
                 <h1 className="self-center py-5 text-3xl text-indigo-500 font-bold"> Login Page</h1>
                 <Input
-                    value={values.email}
-                    errors={errors.email}
+                    values={values.email}
+                    error={errors.email}
                     touched={touched.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -59,8 +62,8 @@ export function Login({
                     required
                 />
                 <Input
-                    value={values.password}
-                    errors={errors.password}
+                    values={values.password}
+                    error={errors.password}
                     touched={touched.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -95,16 +98,14 @@ export function Login({
 //SuperHOC -> a function that return  HOC , no constraint on taking any input
 
 // export default withFormik({ validationSchema: schema, initialValues: initialValues, onSubmit: callLoginApi });
-const myHOC = withFormik({
+
+const FormikLogin = withFormik({
     validationSchema: schema,
     initialValues: initialValues,
     handleSubmit: callLoginApi,
-});
+}); (Login);
 
-
-const EasyLogin = myHOC(Login);
-
-export default EasyLogin;
+export default withAlert(withUser(FormikLogin));
 
 // <Button
 // type="button"

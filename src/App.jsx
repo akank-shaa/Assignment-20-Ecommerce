@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ProductDetail from './ProductDetail';
@@ -10,42 +9,25 @@ import CartPage from './CartPage';
 import SignUp from './SignUp';
 import ForgetPass from './ForgetPass';
 import Login from './Login';
-import Loading from './Loading';
 import AuthRoute from './AuthRoute';
 import UserRoute from './UserRoute';
 import DashBoard from './DashBoard';
+import Alert from './Alert';
+import UserProviders from './providers/UserProviders';
+import AlertProvider from './providers/AlertProvider';
 
 function App() {
 
     const savedDataString = localStorage.getItem("my-cart") || "{}";
     const savedData = JSON.parse(savedDataString);
     const [cart, setCart] = useState(savedData);
-    const [query, setQuery] = useState("");
-    const [user, setUser] = useState();
-    const [loading, setLoading] = useState(true);
-    const token = localStorage.getItem("token");
+    // const [query, setQuery] = useState("");
 
-    useEffect(() => {
-        if (token) {
-            axios.get("https://myeasykart.codeyogi.io/me", {
-                headers: {
-                    Authorization: token,
-                }
-            }).then((response) => {
-                setUser(response.data);
-                setLoading(false);
-            });
-        } else {
-            setLoading(false);
-        }
-    }, []);
-
-    function handleSearch(event) {
-        setQuery(event.data.value);
-    }
+    // function handleSearch(event) {
+    //     setQuery(event.data.value);
+    // }
 
     // useEffect(function () {
-
     // }, [query]);
 
 
@@ -67,51 +49,55 @@ function App() {
     const totalCount = useMemo(function () {
 
         return (Object.keys(cart).reduce(function (previous, current) {
-
             return previous + cart[current];
-
         }, 0))
     }, [cart]);
 
-    if (loading) {
-        return <Loading />
-    }
 
     return (
         <div className="grow flex flex-col justify-between h-screen w-screen gap-14 font-['Poppins']">
-            <Navbar photo="src/Amazon.png" productCount={totalCount} />
-            {/* <div className='p-5 '>
-                <Input
-                    onChange={handleSearch}
-                    id="search"
-                    name="name"
-                    label="Search"
-                    className="w-36"
-                    value={query}
-                    placeholder="Search"
-                />
-            </div> */}
-            <div className='grow'>
-                <Routes>
-                    <Route element={
-                        <AuthRoute user={user}>
-                            <DashBoard user={user} setUser={setUser}/>
-                        </AuthRoute>} />
-                    <Route index element={<ProductListPage />} />
-                    <Route path='/products/:id' element={<ProductDetail onAddToCart={handleAddToCart} />} />
-                    <Route path='*' element={<NotFound />} />
-                    <Route path="/cart" element={<CartPage cart={cart} updateCart={updateCart} />} />
-                    <Route path="/login" element={
-                        <UserRoute user={user}>
-                            <Login setUser={setUser} />
-                        </UserRoute>
-                    }
-                    />
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route path='/forget' element={<ForgetPass />} />
-                </Routes>
-            </div>
-            <Footer />
+            <UserProviders>
+                <AlertProvider>
+                    <Alert />
+                    <Navbar photo="src/Amazon.png" productCount={totalCount} />
+                    {/* <div className='p-5 '>
+                        <Input
+                            onChange={handleSearch}
+                            id="search"
+                            name="name"
+                            label="Search"
+                            className="w-36"
+                            value={query}
+                            placeholder="Search"
+                        />
+                    </div> */}
+                    <div className='grow'>
+                        <Routes>
+                            <Route
+                                element={
+                                    <UserRoute>
+                                        <DashBoard />
+                                    </UserRoute>}
+                            />
+                            <Route index element={<ProductListPage />} />
+                            <Route path='/products/:id' element={<ProductDetail onAddToCart={handleAddToCart} />} />
+                            <Route path='*' element={<NotFound />} />
+                            <Route path="/cart" element={<CartPage cart={cart} updateCart={updateCart} />} />
+                            <Route
+                                path="/login"
+                                element={
+                                    <AuthRoute >
+                                        <Login />
+                                    </AuthRoute>
+                                }
+                            />
+                            <Route path="/signup" element={<SignUp />} />
+                            <Route path='/forget' element={<ForgetPass />} />
+                        </Routes>
+                    </div>
+                    <Footer />
+                </AlertProvider>
+            </UserProviders>
         </div>
     );
 }
