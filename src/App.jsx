@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ProductDetail from './ProductDetail';
@@ -15,12 +15,13 @@ import DashBoard from './DashBoard';
 import Alert from './Alert';
 import UserProviders from './providers/UserProviders';
 import AlertProvider from './providers/AlertProvider';
+import CartProvider from './providers/CartProvider';
 
 function App() {
 
-    const savedDataString = localStorage.getItem("my-cart") || "{}";
-    const savedData = JSON.parse(savedDataString);
-    const [cart, setCart] = useState(savedData);
+    // const savedDataString = localStorage.getItem("my-cart") || "{}";
+    // const savedData = JSON.parse(savedDataString);
+    // const [cart, setCart] = useState(savedData);
     // const [query, setQuery] = useState("");
 
     // function handleSearch(event) {
@@ -31,36 +32,37 @@ function App() {
     // }, [query]);
 
 
-    function handleAddToCart(productId, count) {
-        const oldCart = cart[productId] || 0;
+    // function handleAddToCart(productId, count) {
+    //     const oldCart = cart[productId] || 0;
 
-        // setCart({...cart, [productId]: oldCount + count});
+    //     // setCart({...cart, [productId]: oldCount + count});
 
-        const newCart = { ...cart, [productId]: oldCart + count };
-        updateCart(newCart);
-    }
+    //     const newCart = { ...cart, [productId]: oldCart + count };
+    //     updateCart(newCart);
+    // }
 
-    function updateCart(newCart) {
-        setCart(newCart);
-        const cartString = JSON.stringify(newCart);
-        localStorage.setItem("my-cart", cartString);
-    }
+    // function updateCart(newCart) {
+    //     setCart(newCart);
+    //     const cartString = JSON.stringify(newCart);
+    //     localStorage.setItem("my-cart", cartString);
+    // }
 
-    const totalCount = useMemo(function () {
+    // const totalCount = useMemo(function () {
 
-        return (Object.keys(cart).reduce(function (previous, current) {
-            return previous + cart[current];
-        }, 0))
-    }, [cart]);
+    //     return (Object.keys(cart).reduce(function (previous, current) {
+    //         return previous + cart[current];
+    //     }, 0))
+    // }, [cart]);
 
 
     return (
         <div className="grow flex flex-col justify-between h-screen w-screen gap-14 font-['Poppins']">
             <UserProviders>
-                <AlertProvider>
-                    <Alert />
-                    <Navbar photo="src/Amazon.png" productCount={totalCount} />
-                    {/* <div className='p-5 '>
+                <CartProvider>
+                    <AlertProvider>
+                        <Alert />
+                        <Navbar photo="src/Amazon.png" />
+                        {/* <div className='p-5 '>
                         <Input
                             onChange={handleSearch}
                             id="search"
@@ -71,32 +73,43 @@ function App() {
                             placeholder="Search"
                         />
                     </div> */}
-                    <div className='grow'>
-                        <Routes>
-                            <Route
-                                element={
-                                    <UserRoute>
-                                        <DashBoard />
-                                    </UserRoute>}
-                            />
-                            <Route index element={<ProductListPage />} />
-                            <Route path='/products/:id' element={<ProductDetail onAddToCart={handleAddToCart} />} />
-                            <Route path='*' element={<NotFound />} />
-                            <Route path="/cart" element={<CartPage cart={cart} updateCart={updateCart} />} />
-                            <Route
-                                path="/login"
-                                element={
-                                    <AuthRoute >
-                                        <Login />
-                                    </AuthRoute>
-                                }
-                            />
-                            <Route path="/signup" element={<SignUp />} />
-                            <Route path='/forget' element={<ForgetPass />} />
-                        </Routes>
-                    </div>
-                    <Footer />
-                </AlertProvider>
+                        <div className='grow'>
+                            <Routes>
+                                <Route
+                                    element={
+                                        <UserRoute>
+                                            <DashBoard />
+                                        </UserRoute>}
+                                />
+                                <Route index element={<ProductListPage />} />
+                                <Route
+                                    path='/products/:id'
+                                    element={<ProductDetail />} />
+                                <Route
+                                    path='*'
+                                    element={<NotFound />} />
+                                <Route
+                                    path="/cart"
+                                    element={<CartPage />} />
+                                <Route
+                                    path="/login"
+                                    element={
+                                        <AuthRoute >
+                                            <Login />
+                                        </AuthRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/signup"
+                                    element={<SignUp />} />
+                                <Route
+                                    path='/forget'
+                                    element={<ForgetPass />} />
+                            </Routes>
+                        </div>
+                        <Footer />
+                    </AlertProvider>
+                </CartProvider>
             </UserProviders>
         </div>
     );

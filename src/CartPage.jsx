@@ -1,32 +1,34 @@
 import CartList from "./CartList";
 import React, { useEffect, useState } from "react";
-import { getProductData } from "./Api";
+import { getProductByIds, getProductData } from "./Api";
 import Loading from "./Loading";
 import { Link } from 'react-router-dom';
+import { withCart } from "./withProvider";
 
 
 function CartPage({ cart, updateCart }) {
-    const [loading, setLoading] = useState(true);
-    const [products, setProducts] = useState([]);
+    // const [loading, setLoading] = useState(true);
+    // const [products, setProducts] = useState([]);
 
-    useEffect(
-        function () {
-            setLoading(true);
-            const productIds = Object.keys(cart);
-            const myProductPromises = productIds.map(function (id) {
-                return getProductData(id);
-            });
-            Promise.all(myProductPromises).then(function (products) {
-                setProducts(products);
-                setLoading(false);
-            });
-        },
-        [cart]
-    );
+    // useEffect(
+    //     function () {
+    //         setLoading(true);
+    //         const productIds = Object.keys(cart);
+    //         // const myProductPromises = productIds.map(function (id) {
+    //         //     return getProductData(id);
+    //         // });
+    //         // Promise.all(myProductPromises)
+    //         getProductByIds(productIds).then(function (products) {
+    //             setProducts(products);
+    //             setLoading(false);
+    //         });
+    //     },
+    //     [cart]
+    // );
 
-    if (loading) {
-        return <Loading />
-    }
+    // if (loading) {
+    //     return <Loading />
+    // }
 
     // if (productId.length == 0) {
     //     return (
@@ -50,4 +52,4 @@ function CartPage({ cart, updateCart }) {
     );
 }
 
-export default CartPage;
+export default withCart(CartPage);

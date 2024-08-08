@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { getProductData } from './Api';
 import Loading from './Loading';
 import NotFound from './NotFound';
+import { withCart } from './withProvider';
 
 function ProductDetail({ onAddToCart }) {
     const id = parseInt(useParams().id);
@@ -23,8 +24,8 @@ function ProductDetail({ onAddToCart }) {
     const [count, setCount] = useState(1);
 
     useEffect(function () {
-        getProductData(id).then(function (product) {
-            setProduct(product);
+        getProductData(id).then(function (response) {
+            setProduct(response);
             setLoading(false);
             setCount(1);
 
@@ -115,7 +116,7 @@ function ProductDetail({ onAddToCart }) {
     );
 }
 
-export default ProductDetail;
+export default withCart(ProductDetail);
 
 
 
