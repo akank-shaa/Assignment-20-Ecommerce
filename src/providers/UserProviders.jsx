@@ -6,8 +6,10 @@ import axios from "axios";
 
 function UserProviders({ children }) {
     const [user, setUser] = useState();
-    const token = localStorage.getItem("token");
     const [loading, setLoading] = useState(true);
+    const token = localStorage.getItem("token");
+
+
 
     useEffect(() => {
         if (token) {
@@ -32,11 +34,20 @@ function UserProviders({ children }) {
         return <Loading />
     }
 
-
-    return (<UserContext.Provider value={{ user, setUser }}>
+    return (<UserContext.Provider value={{ isLoggedIn: !!token, user, setUser }}>
         {children}
     </UserContext.Provider>
     )
 }
 
 export default UserProviders;
+
+//! converts truthy value to false and vice versa
+//false - false
+//falsy - 0, "", NaN , undefined,null
+//so ! worconvertks on non-booleans as well.But output is always boolean
+//paltega aur pure boolean mein convert
+
+
+//!!pure boolean mein convert  
+//!! converts truthy to true and falsy values to false

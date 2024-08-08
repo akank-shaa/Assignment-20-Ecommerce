@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { withCart } from "./withProvider";
 
 
-function CartPage({ cart, updateCart }) {
+function CartPage() {
     // const [loading, setLoading] = useState(true);
     // const [products, setProducts] = useState([]);
 
@@ -43,13 +43,9 @@ function CartPage({ cart, updateCart }) {
 
     return (
         <div className="h-screen p-20 bg-white max-w-6xl mx-auto">
-            <CartList
-                products={products}
-                cart={cart}
-                updateCart={updateCart}
-            />
+            <CartList />
         </div>
     );
 }
 
-export default withCart(CartPage);
+export default CartPage;

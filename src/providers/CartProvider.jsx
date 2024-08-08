@@ -1,50 +1,73 @@
 import React, { useEffect, useState } from "react";
 import { CartContext } from "../Contexts";
 import { withUser } from "../withProvider";
-import { getCart, saveCart } from "../Api";
+import { getCart, getProductByIds, saveCart } from "../Api";
 import { set } from "lodash";
 
-function CartProvider({ user, children }) {
+function CartProvider({ isLoggedIn, children }) {
     const [cart, setCart] = useState([]);
 
     useEffect(function () {
-        if (!user) {
+        if (!isLoggedIn) {
+            //get from server using API
+            getCart().then(function (savedCart) {
+                setCart(savedCart);
+            });
+        } else {
             const savedDataString = localStorage.getItem("my-cart") || "{}";
             const savedData = JSON.parse(savedDataString);
-            setCart(savedData);
-        } else {
-            //get from server using API
-            getCart().then(function (savedData) {
-                setCart(savedData);
-            });
-        }
-    }, [user]);
+            // setCart(savedData);
+            quantityMapToCart(savedData);
 
+        }
+    },
+        [isLoggedIn]
+    );
+
+    function quantityMapToCart(quantityMap) {
+        getProductByIds(Object.keys(quantityMap)), then(function (products) {
+            const savedCart = products.map((p) =>
+            ({
+                product: p,
+                quantity: quantityMap[p.id]
+            }));
+
+            setCart(savedCart);
+        });
+    }
 
     function handleAddToCart(productId, count) {
-        const
-            oldCart = cart[productId] || 0;
+        const quantityMap = cart.reduce(
+            (m, cartItem) =>
+                ({ ...m, [cartItem.product.id]: cartItem.quantity })
+            , {}
+        );
+
+        const oldCart = quantityMap[productId] || 0;
+
 
         // setCart({...cart, [productId]: oldCount + count});
-        const newCart = { ...cart, [productId]: oldCart + count };
+        const newCart = { ...quantityMap, [productId]: oldCart + count };
         updateCart(newCart);
     }
 
-    function updateCart(newCart) {
-        setCart(newCart);
-        const cartString = JSON.stringify(newCart);
-        if (!user) {
-            localStorage.setItem("my-cart", cartString);
-        } else {
-            saveCart(newCart);
+    function updateCart(quantityMap) {
+        if (isLoggedIn) {
             //save on server using api
+            saveCart(quantityMap).then(function (response) {
+                //   setCart(response);
+                quantityMapToCart(quantityMap);
+            });
+        } else {
+            const quantityMapString = JSON.stringify(quantityMap);
+            localStorage.setItem("my-cart", quantityMapString);
+            quantityMapToCart(quantityMap);
         };
     }
 
     const cartCount = useMemo(function () {
-
-        return (Object.keys(cart).reduce(function (previous, current) {
-            return previous + cart[current];
+        return (cart.reduce(function (previous, current) {
+            return previous + current.quantity;
         }, 0))
     }, [cart]);
 

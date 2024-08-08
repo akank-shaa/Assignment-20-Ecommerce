@@ -1,31 +1,43 @@
 import React, { useState, useEffect } from "react";
 import CartButton from "./CartButton";
 import CartRow from "./CartRow";
+import { withCart } from "./withProvider";
 //Product, CartProduct
 
-function CartList({ products, cart, updateCart }) {
-    const [localCart, setLocalCart] = useState(cart);
+function CartList({ cart, updateCart }) {
+
+    const [quantityMap, setQuantityMap] = useState({});
+    const cartToQuantityMap = () => cart.reduce(
+        (m, cartItem) =>
+            ({ ...m, [cartItem.product.id]: cartItem.quantity })
+        , {}
+    );
 
     useEffect(
         function () {
-            setLocalCart(cart);
+            setQuantityMap(cartToQuantityMap);
         },
         [cart]
     );
 
     function handleQuantityChange(productId, newValue) {
-        const newLocalCart = { ...localCart, [productId]: newValue };
-        setLocalCart(newLocalCart);
+        const newQuantityMap = { ...quantityMap, [productId]: newValue };
+        setQuantityMap(newQuantityMap);
     }
 
     function handleUpdateCartClick() {
-        updateCart(localCart);
+        // const newCart = cart.map(item => ({
+        //     ...item,
+        //     quantity: quantityMap[item.product.id],
+        // }));
+        updateCart(quantityMap);
     }
 
     function handleRemove(productId) {
-        const newCart = { ...cart };
-        delete newCart[productId]
-        updateCart(newCart);
+        const newQuantityMap = cartToQuantityMap();
+        delete newQuantityMap[productId];
+        // const newCart = cart.filter(item => item.product.id === productId);
+        updateCart(newQuantityMap);
     }
 
     return (
@@ -36,11 +48,11 @@ function CartList({ products, cart, updateCart }) {
                 <span className="w-32">Quantity</span>
                 <span className="w-20">SubTotal</span>
             </div>
-            {products.map((p) => (
+            {cart.map((cartItem) => (
                 <CartRow
-                    key={p.id}
-                    product={p}
-                    quantity={localCart[p.id]}
+                    key={cartItem.product.id}
+                    product={cartItem.product}
+                    quantity={quantityMap[cartItem.quantity.id]}
                     onQuantityChange={handleQuantityChange}
                     onRemove={handleRemove}
                 />
@@ -52,4 +64,4 @@ function CartList({ products, cart, updateCart }) {
     )
 }
 
-export default CartList;
+export default withCart(CartList);
