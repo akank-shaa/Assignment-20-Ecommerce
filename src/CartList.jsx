@@ -6,12 +6,15 @@ import { withCart } from "./withProvider";
 
 function CartList({ cart, updateCart }) {
 
-    const [quantityMap, setQuantityMap] = useState({});
     const cartToQuantityMap = () => cart.reduce(
         (m, cartItem) =>
             ({ ...m, [cartItem.product.id]: cartItem.quantity })
         , {}
     );
+
+    const qm = cartToQuantityMap();
+    const [quantityMap, setQuantityMap] = useState(qm);
+
 
     useEffect(
         function () {
